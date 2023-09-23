@@ -1,0 +1,67 @@
+4. Запустить локальный registry и запушить в него образ, как на последнем слайде
+  <pre>[melchior@fedora ~]$ docker run -d -p 5000:5000 --restart=always --name registry registry:2
+Unable to find image &apos;registry:2&apos; locally
+2: Pulling from library/registry
+7264a8db6415: Pull complete 
+c4d48a809fc2: Pull complete 
+88b450dec42e: Pull complete 
+121f958bea53: Pull complete 
+7417fa3c6d92: Pull complete 
+Digest: sha256:d5f2fb0940fe9371b6b026b9b66ad08d8ab7b0d56b6ee8d5c71cb9b45a374307
+Status: Downloaded newer image for registry:2
+cf982379a802ae82ce405a2307f9ec69f72bc0698a075cb80f2eb5ea0981b5d3
+[melchior@fedora ~]$ docker pull ubuntu:16.04
+16.04: Pulling from library/ubuntu
+58690f9b18fc: Pull complete 
+b51569e7c507: Pull complete 
+da8ef40b9eca: Pull complete 
+fb15d46c38dc: Pull complete 
+Digest: sha256:1f1a2d56de1d604801a9671f301190704c25d604a416f59e03c04f5c6ffee0d6
+Status: Downloaded newer image for ubuntu:16.04
+docker.io/library/ubuntu:16.04
+[melchior@fedora ~]$ docker tag ubuntu:16.04 localhost:5000/my-ubuntu
+[melchior@fedora ~]$ docker push localhost:5000/my-ubuntu
+Using default tag: latest
+The push refers to repository [localhost:5000/my-ubuntu]
+1251204ef8fc: Pushed 
+47ef83afae74: Pushed 
+df54c846128d: Pushed 
+be96a3f634de: Pushed 
+latest: digest: sha256:a3785f78ab8547ae2710c89e627783cfa7ee7824d3468cae6835c9f4eae23ff7 size: 1150
+[melchior@fedora ~]$ docker images
+REPOSITORY                 TAG         IMAGE ID       CREATED         SIZE
+ubuntu                     latest      c6b84b685f35   5 weeks ago     77.8MB
+registry                   2           0030ba3d620c   6 weeks ago     24.1MB
+testcontainers/ryuk        0.5.1       ec913eeff75a   4 months ago    12.7MB
+postgres                   13          a7ec00098633   4 months ago    374MB
+postgres                   15.2        bf700010ce28   4 months ago    379MB
+postgres                   13-alpine   fd46edc7b3d6   5 months ago    238MB
+postgres                   latest      80c558ffdc31   5 months ago    379MB
+docker/getting-started     latest      3e4394f6b72f   9 months ago    47MB
+postgres                   14.2        9dbc24674f25   16 months ago   376MB
+testcontainers/ryuk        0.3.3       64f4b02dc986   23 months ago   12MB
+hello-world                latest      feb5d9fea6a5   24 months ago   13.3kB
+ubuntu                     16.04       b6f507652425   2 years ago     135MB
+localhost:5000/my-ubuntu   latest      b6f507652425   2 years ago     135MB
+[melchior@fedora ~]$ docker image remove ubuntu:16.04
+Untagged: ubuntu:16.04
+Untagged: ubuntu@sha256:1f1a2d56de1d604801a9671f301190704c25d604a416f59e03c04f5c6ffee0d6
+[melchior@fedora ~]$ docker image remove localhost:5000/my-ubuntu
+Untagged: localhost:5000/my-ubuntu:latest
+Untagged: localhost:5000/my-ubuntu@sha256:a3785f78ab8547ae2710c89e627783cfa7ee7824d3468cae6835c9f4eae23ff7
+Deleted: sha256:b6f50765242581c887ff1acc2511fa2d885c52d8fb3ac8c4bba131fd86567f2e
+Deleted: sha256:0214f4b057d78b44fd12702828152f67c0ce115f9346acc63acdf997cab7e7c8
+Deleted: sha256:1b9d0485372c5562fa614d5b35766f6c442539bcee9825a6e90d1158c3299a61
+Deleted: sha256:3c0f34be6eb98057c607b9080237cce0be0b86f52d51ba620dc018a3d421baea
+Deleted: sha256:be96a3f634de79f523f07c7e4e0216c28af45eb5776e7a6238a2392f71e01069
+[melchior@fedora ~]$ docker pull localhost:5000/my-ubuntu
+Using default tag: latest
+latest: Pulling from my-ubuntu
+58690f9b18fc: Pull complete 
+b51569e7c507: Pull complete 
+da8ef40b9eca: Pull complete 
+fb15d46c38dc: Pull complete 
+Digest: sha256:a3785f78ab8547ae2710c89e627783cfa7ee7824d3468cae6835c9f4eae23ff7
+Status: Downloaded newer image for localhost:5000/my-ubuntu:latest
+localhost:5000/my-ubuntu:latest
+</pre>
